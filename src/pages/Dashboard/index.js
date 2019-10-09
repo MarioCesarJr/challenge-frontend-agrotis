@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { MdSearch, MdAdd } from 'react-icons/md';
 import { Container, List } from './styles';
 
@@ -48,9 +48,13 @@ export default function Dashboard() {
                 <div />
             </List>
 
-            <div className="fixed">
-                <MdAdd size="40" color="#fff" />
+            <div className="load">
+                <a href="/">Carregar mais...</a>
             </div>
+
+            <Link to="/new" className="fixed">
+                <MdAdd size="40" color="#fff" />
+            </Link>
         </Container>
     );
 }

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
     max-width: 1300px;
     height: 500px;
     background: #fff;
-    /* padding: 30px; */
     margin: 20px auto;
 
     header {
@@ -46,6 +46,15 @@ export const Container = styled.div`
         }
     }
 
+    .load {
+        text-align: center;
+        margin: 30px;
+
+        a {
+            color: #145e43;
+        }
+    }
+
     .fixed {
         background: #b45f06;
         height: 50px;
@@ -59,6 +68,11 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+
+        transition: background 0.2s;
+        &:hover {
+            background: ${darken(0.05, '#b45f06')};
+        }
     }
 `;
 
@@ -76,9 +90,5 @@ export const List = styled.li`
 
     strong {
         margin-left: 5px;
-    }
-
-    .space {
-        width: 230px;
     }
 `;
