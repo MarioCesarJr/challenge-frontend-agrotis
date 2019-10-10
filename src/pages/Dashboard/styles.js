@@ -7,6 +7,12 @@ export const Container = styled.div`
     background: #fff;
     margin: 20px auto;
 
+    .loading {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
     header {
         display: flex;
         align-content: center;
@@ -49,9 +55,19 @@ export const Container = styled.div`
     .load {
         text-align: center;
         margin: 30px;
+        display: flex;
+        flex-direction: column;
 
-        a {
+        button {
+            border: 0;
+            background-color: #fff;
+            text-decoration: underline;
             color: #145e43;
+            cursor: pointer;
+        }
+
+        span {
+            margin-top: 5px;
         }
     }
 
@@ -78,11 +94,19 @@ export const Container = styled.div`
 
 export const List = styled.li`
     display: flex;
-    justify-content: space-between;
+
     padding: 15px;
     margin: 15px;
     border-radius: 4px;
     border: 1px solid #ccc;
+
+    .name {
+        width: 30%;
+    }
+
+    .description {
+        width: 70%;
+    }
 
     span {
         color: #666;
@@ -91,4 +115,10 @@ export const List = styled.li`
     strong {
         margin-left: 5px;
     }
+`;
+
+export const Scroll = styled.div`
+    overflow-y: ${props => (props.show ? 'scroll' : '')};
+    margin-top: 15px;
+    max-height: 350px;
 `;

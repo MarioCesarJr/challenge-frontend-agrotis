@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSearch, MdAdd } from 'react-icons/md';
-import { Container, List } from './styles';
+import Loader from 'react-loader-spinner';
+import api from '../../services/api';
+import { Container, List, Scroll } from './styles';
 
 export default function Dashboard() {
+    const [records, setRecords] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [total, setTotal] = useState(0);
+    const [_limit, _setLimit] = useState(2);
+
+    useEffect(() => {
+        async function loadRecords() {
+            try {
+                setLoading(true);
+
+                const response = await api.get('records', {
+                    params: {
+                        _limit,
+                    },
+                });
+
+                setTotal(response.headers['x-total-count']);
+
+                setRecords(response.data);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadRecords();
+    }, [_limit]);
+
+    function handleLoadMore() {
+        _setLimit(_limit + 3);
+    }
+
     return (
         <Container>
             <header>
@@ -16,43 +50,49 @@ export default function Dashboard() {
                 </form>
             </header>
 
-            <List>
-                <div>
-                    <span>Nome:</span>
-                    <strong>Andamento</strong>
+            {loading ? (
+                <div className="loading">
+                    <Loader
+                        type="TailSpin"
+                        color="#145e43"
+                        width={30}
+                        height={30}
+                    />
                 </div>
+            ) : (
+                <>
+                    <Scroll show={records.length > 5}>
+                        {records.map(record => (
+                            <List key={record.id}>
+                                <div className="name">
+                                    <span>Nome:</span>
+                                    <strong>{record.name}</strong>
+                                </div>
 
-                <div>
-                    <span>Descrição:</span>
-                    <strong>
-                        Quando o contrato está em andamento e pode ser alterado
-                    </strong>
+                                <div className="description">
+                                    <span>Descrição:</span>
+                                    <strong>{record.description}</strong>
+                                </div>
+                            </List>
+                        ))}
+                    </Scroll>
+                </>
+            )}
+
+            {records.length < total ? (
+                <div className="load">
+                    <button type="button" onClick={handleLoadMore}>
+                        Carregar mais...
+                    </button>
+                    <span>({`${records.length} - ${total}`})</span>
                 </div>
-
-                <div />
-            </List>
-
-            <List>
-                <div>
-                    <span>Nome:</span>
-                    <strong>Finalizado</strong>
+            ) : (
+                <div className="load">
+                    <span>({`${records.length} - ${total}`})</span>
                 </div>
+            )}
 
-                <div>
-                    <span>Descrição:</span>
-                    <strong>
-                        Quando o contrato foi atendido e não pode ser modificado
-                    </strong>
-                </div>
-
-                <div />
-            </List>
-
-            <div className="load">
-                <a href="/">Carregar mais...</a>
-            </div>
-
-            <Link to="/new" className="fixed">
+            <Link to="/new" className="fixed" title="Novo registro">
                 <MdAdd size="40" color="#fff" />
             </Link>
         </Container>

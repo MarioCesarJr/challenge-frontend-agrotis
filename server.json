@@ -1,0 +1,44 @@
+{
+    "records": [
+        {
+            "id": 1,
+            "name": "Andamento",
+            "description": "Quando o contrato está em andamento e pode ser alterado"
+        },
+        {
+            "id": 2,
+            "name": "Finalizado",
+            "description": "Quando o contrato foi atendido e não pode ser modificado"
+        },
+        {
+            "id": 3,
+            "name": "Andamento",
+            "description": "O contrato ainda está em tramitação e não pode ser modificado"
+        },
+        {
+            "id": 4,
+            "name": "sit amet",
+            "description": "consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        },
+        {
+            "id": 5,
+            "name": "blandit massa",
+            "description": "Consequat mauris nunc congue nisi vitae"
+        },
+        {
+            "id": 6,
+            "name": "In mollis",
+            "description": "Vitae auctor eu augue ut lectus arcu bibendum at varius"
+        },
+        {
+            "id": 7,
+            "name": "Malesuada",
+            "description": "Quam id leo in vitae turpis massa sed"
+        },
+        {
+            "id": 8,
+            "name": "Massa enim",
+            "description": "Nunc pulvinar sapien et ligula ullamcorper"
+        }
+    ]
+}
