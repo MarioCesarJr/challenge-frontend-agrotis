@@ -48,6 +48,7 @@ export const Container = styled.div`
                 background: transparent;
                 outline: none;
                 padding: 5px 5px;
+                cursor: pointer;
             }
         }
     }

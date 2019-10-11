@@ -6,33 +6,46 @@ import api from '../../services/api';
 import { Container, List, Scroll } from './styles';
 
 export default function Dashboard() {
+    const [searchString, setSearchString] = useState('');
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [_limit, _setLimit] = useState(2);
 
-    useEffect(() => {
-        async function loadRecords() {
-            try {
-                setLoading(true);
+    async function loadRecords() {
+        try {
+            setLoading(true);
 
-                const response = await api.get('records', {
-                    params: {
-                        _limit,
-                    },
-                });
+            const response = await api.get('records', {
+                params: {
+                    q: searchString,
+                    _limit,
+                },
+            });
 
-                setTotal(response.headers['x-total-count']);
+            setTotal(response.headers['x-total-count']);
 
-                setRecords(response.data);
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
-            }
+            setRecords(response.data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
         }
+    }
+
+    useEffect(() => {
         loadRecords();
-    }, [_limit]);
+    }, [searchString, _limit]);
+
+    function handleSearch(e) {
+        const { value } = e.target;
+
+        if (value.length > 2) {
+            setSearchString(value);
+        } else {
+            loadRecords();
+        }
+    }
 
     function handleLoadMore() {
         _setLimit(_limit + 3);
@@ -43,7 +56,11 @@ export default function Dashboard() {
             <header>
                 <span>Situações do documento</span>
                 <form>
-                    <input type="text" placeholder="Pesquisar por nome..." />
+                    <input
+                        type="text"
+                        placeholder="Pesquisar por nome..."
+                        onChange={handleSearch}
+                    />
                     <button type="submit">
                         <MdSearch size="25" color="#667581" />
                     </button>
