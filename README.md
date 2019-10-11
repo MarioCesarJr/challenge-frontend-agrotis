@@ -4,6 +4,10 @@ React and Redux
 
 -   [Challenge](https://github.com/agrotis-io/desafio-front) - Agrotis
 
+![screenshot01](screenshot01.png)
+
+![screenshot02](screenshot02.png)
+
 ## Steps to Setup
 
 1. Install dependencies
