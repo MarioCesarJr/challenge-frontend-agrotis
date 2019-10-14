@@ -28,7 +28,7 @@ export const Container = styled.div`
             font-size: 16px;
         }
 
-        form {
+        div {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -58,7 +58,7 @@ export const Container = styled.div`
         }
     }
 
-    .form form {
+    .form {
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -101,11 +101,25 @@ export const Container = styled.div`
         }
     }
 
-    .form form div:nth-child(1) {
+    .form div:nth-child(1) {
         width: 30%;
     }
 
-    .form form div:nth-child(2) {
+    .form div:nth-child(2) {
         width: 64%;
+    }
+
+    @media (max-width: 600px) {
+        .form {
+            flex-direction: column;
+        }
+
+        .form div:nth-child(1) {
+            width: 90%;
+        }
+
+        .form div:nth-child(2) {
+            width: 90%;
+        }
     }
 `;

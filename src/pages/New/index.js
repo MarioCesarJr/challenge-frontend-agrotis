@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdChevronLeft } from 'react-icons/md';
 import { Container } from './styles';
+import { addRecord } from '../../store/modules/record/actions';
 
 export default function New() {
-    const [inputValue, setInputValue] = useState('');
     const [nameActive, setNameActive] = useState(false);
     const [descriptionActive, setDescriptionActive] = useState(false);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
+    const dispatch = useDispatch();
 
     function activateNameField() {
         setNameActive(true);
@@ -28,27 +33,30 @@ export default function New() {
         }
     }
 
-    function updateInputValue(e) {
-        setInputValue(e.target.value);
-
+    function handleAddRecord(e) {
         e.preventDefault();
+
+        dispatch(addRecord(name, description));
+
+        setName('');
+        setDescription('');
     }
 
     return (
         <Container>
-            <header>
-                <Link to="/">
-                    <MdChevronLeft size={30} />
-                    <span>Situação</span>
-                </Link>
-                <form>
-                    <Link to="/">VOLTAR</Link>
-                    <button type="submit">SALVAR</button>
-                </form>
-            </header>
+            <form onSubmit={handleAddRecord}>
+                <header>
+                    <Link to="/">
+                        <MdChevronLeft size={30} />
+                        <span>Situação</span>
+                    </Link>
+                    <div>
+                        <Link to="/">VOLTAR</Link>
+                        <button type="submit">SALVAR</button>
+                    </div>
+                </header>
 
-            <div className="form">
-                <form>
+                <div className="form">
                     <div>
                         <label
                             htmlFor="name"
@@ -58,11 +66,10 @@ export default function New() {
                             <input
                                 type="text"
                                 id="name"
-                                name="name"
-                                value={inputValue}
                                 onFocus={activateNameField}
                                 onBlur={disableNameField}
-                                onChange={updateInputValue}
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             />
                         </label>
                     </div>
@@ -76,14 +83,15 @@ export default function New() {
                             <input
                                 type="text"
                                 id="description"
-                                name="description"
                                 onFocus={activateDescriptionField}
                                 onBlur={disableDescriptionField}
+                                value={description}
+                                onChange={e => setDescription(e.target.value)}
                             />
                         </label>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </Container>
     );
 }

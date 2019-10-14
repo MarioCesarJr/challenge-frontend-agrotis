@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSearch, MdAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 import Loader from 'react-loader-spinner';
 import api from '../../services/api';
 import { Container, List, Scroll } from './styles';
@@ -12,28 +13,27 @@ export default function Dashboard() {
     const [total, setTotal] = useState(0);
     const [_limit, _setLimit] = useState(2);
 
-    async function loadRecords() {
-        try {
-            setLoading(true);
-
-            const response = await api.get('records', {
-                params: {
-                    q: searchString,
-                    _limit,
-                },
-            });
-
-            setTotal(response.headers['x-total-count']);
-
-            setRecords(response.data);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoading(false);
-        }
-    }
-
     useEffect(() => {
+        async function loadRecords() {
+            try {
+                setLoading(true);
+
+                const response = await api.get('records', {
+                    params: {
+                        q: searchString,
+                        _limit,
+                    },
+                });
+
+                setTotal(response.headers['x-total-count']);
+
+                setRecords(response.data);
+            } catch (err) {
+                toast.error('Ocorreu um erro, tente novamente mais tarde.');
+            } finally {
+                setLoading(false);
+            }
+        }
         loadRecords();
     }, [searchString, _limit]);
 
@@ -42,8 +42,6 @@ export default function Dashboard() {
 
         if (value.length > 2) {
             setSearchString(value);
-        } else {
-            loadRecords();
         }
     }
 
@@ -61,7 +59,7 @@ export default function Dashboard() {
                         placeholder="Pesquisar por nome..."
                         onChange={handleSearch}
                     />
-                    <button type="submit">
+                    <button type="button">
                         <MdSearch size="25" color="#667581" />
                     </button>
                 </form>

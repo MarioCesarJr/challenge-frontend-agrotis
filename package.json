@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.5.0",
-    "@material-ui/icons": "^4.4.3",
     "axios": "^0.19.0",
+    "history": "^4.10.1",
+    "immer": "^4.0.1",
     "polished": "^3.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -15,7 +15,11 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-toastify": "^5.4.0",
+    "reactotron-react-js": "^3.3.4",
+    "reactotron-redux": "^3.1.2",
+    "reactotron-redux-saga": "^4.2.2",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",
     "styled-components": "^4.4.0"
   },
@@ -49,7 +53,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
     "prettier": "^1.18.2"
   }
 }

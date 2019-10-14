@@ -91,6 +91,17 @@ export const Container = styled.div`
             background: ${darken(0.05, '#b45f06')};
         }
     }
+
+    @media (max-width: 600px) {
+        header {
+            display: flex;
+            flex-direction: column;
+
+            form {
+                margin-top: 10px;
+            }
+        }
+    }
 `;
 
 export const List = styled.li`
@@ -115,6 +126,14 @@ export const List = styled.li`
 
     strong {
         margin-left: 5px;
+    }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+
+        .description {
+            margin-top: 5px;
+        }
     }
 `;
 
